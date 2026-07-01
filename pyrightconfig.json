@@ -1,0 +1,15 @@
+{
+    "include": [
+        "app",
+        "tests"
+    ],
+
+    "exclude": [
+        ".venv",
+        "__pycache__"
+    ],
+
+    "typeCheckingMode": "standard",
+
+    "pythonVersion": "3.13"
+}
