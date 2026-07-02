@@ -6,3 +6,7 @@ class Lobby:
         self.users: list[User] = users
 
         self.state = None
+
+    def start_game(self): ...
+
+    def finish_game(self): ...

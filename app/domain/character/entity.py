@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from app.domain.character.state import CharacterState
+from .state import CharacterState
 
 
 @dataclass

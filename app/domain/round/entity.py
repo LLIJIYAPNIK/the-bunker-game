@@ -1,9 +1,19 @@
-from app.domain.game_participant.entity import GameParticipant
+from app.domain import game
 
 
 class Round:
-    def __init__(self, participants: list[GameParticipant]):
+    def __init__(self, participants: list[game.Participant]):
         self.participant = participants
 
-        self.messages: dict[GameParticipant, str] = {}
-        self.voting_result: GameParticipant | None = None
+        self.messages: dict[game.Participant, str] = {}
+        self.voting_result: game.Participant | None = None
+
+    def start(self): ...
+
+    def finish(self): ...
+
+    def participant_say(self, participant: game.Participant, phrase: str): ...
+
+    def start_voting(self): ...
+
+    def finish_voting(self): ...
