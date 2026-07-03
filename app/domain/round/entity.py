@@ -12,7 +12,7 @@ class Round:
 
         self.voters = participants
         self.targets = participants
-        self.voting = voting.Voting(self.voters, self.targets)
+        self.voting = voting.Voting(self.voters.copy(), self.targets.copy())
 
     def _finish(self, participant: game.Participant):
         self.state = RoundState.FINISHED
@@ -30,6 +30,7 @@ class Round:
             return None
         if vote.needs_revote:
             self._revoting()
+            return None
         return self._finish_voting(vote)
 
     def _finish_voting(self, voting_result: VotingResult):

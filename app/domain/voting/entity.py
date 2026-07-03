@@ -50,7 +50,7 @@ class Voting:
         self.state = VotingState.REVOTE
         current_result = self._finish().winners
 
-        self.voted = [p for p in self.targets if p not in current_result]
-        self.targets = current_result
+        self.voted = self.targets.copy()
+        self.targets = current_result.copy()
         self.votes = defaultdict(int)
         self.start()
