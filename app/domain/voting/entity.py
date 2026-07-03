@@ -3,51 +3,54 @@ from collections import defaultdict
 from app.domain import game
 
 from .state import VotingState
+from .voting_result import VotingResult
 
 
 class Voting:
-    def __init__(self, participants: list[game.Participant]):
-        self.participants: list[game.Participant] = participants
-        self.statistics: dict[game.Participant, int] = defaultdict(int)
+    def __init__(
+        self, voters: list[game.Participant], targets: list[game.Participant]
+    ):
+        self.voted = voters
+        self.targets = targets
+
+        self.votes: dict[game.Participant, int] = defaultdict(int)
 
         self.state = VotingState.OPEN
-
-        # TODO: Relation with a tie. It should another implementation
-        self._result: game.Participant | None = None
 
     def start(self):
         self.state = VotingState.OPEN
 
-    def cast(self, voter: game.Participant, target: game.Participant):
-        # TODO: Add a return value for voting and use it in Round
-        # TODO: Add check voter != target
-        # TODO: Add check voter and target are active participants
-        self.state = VotingState.COUNTING
-        self.statistics[target] += 1
+    def register_vote(self, voter: game.Participant, target: game.Participant):
+        if voter not in self.voted:
+            raise ValueError(
+                "Voter is already voted or voter is not in voting"
+            )
+        if target not in self.targets:
+            raise ValueError("Target is not in voting")
+        if voter == target:
+            raise ValueError("Target is same as voter")
 
-    def finish(self):
+        self.voted.remove(voter)
+        self.votes[target] += 1
+
+        if not self.voted:
+            return self._finish()
+        return None
+
+    def _finish(self):
         result = [
             participant
-            for participant, vote in self.statistics.items()
-            if vote == max(self.statistics.values())
+            for participant, vote in self.votes.items()
+            if vote == max(self.votes.values())
         ]
 
-        # TODO: Return result here: a tie or a participant, use it in Round()
-        if len(result) == 1:
-            self.state = VotingState.FINISHED
-            self._result = result[0]
-        else:
-            self._revote(result)
+        return VotingResult(result)
 
-    def _revote(self, participants: list[game.Participant]):
-        # TODO: Think about revoting. It should another implementation
+    def restart(self):
         self.state = VotingState.REVOTE
-        self.participants = participants
-        self.statistics: dict[game.Participant, int] = defaultdict(int)
-        self.start()
+        current_result = self._finish().winners
 
-    def get_result(self) -> game.Participant | None:
-        # TODO: finish() has to return result. It should another implementation
-        if self.state == VotingState.FINISHED:
-            return self._result
-        return None
+        self.voted = [p for p in self.targets if p not in current_result]
+        self.targets = current_result
+        self.votes = defaultdict(int)
+        self.start()
