@@ -1,12 +1,15 @@
-from app.domain import game, voting
-from app.domain.voting.voting_result import VotingResult
+from typing import TypeVar
+
+from app.domain import voting
 
 from .round_result import RoundResult
 from .state import RoundState
 
+T = TypeVar("T")
 
-class Round:
-    def __init__(self, participants: list[game.Participant]):
+
+class Round[T]:
+    def __init__(self, participants: list[T]):
         self.participant = participants
         self.state = RoundState.DISCUSSION
 
@@ -14,7 +17,7 @@ class Round:
         self.targets = participants
         self.voting = voting.Voting(self.voters.copy(), self.targets.copy())
 
-    def _finish(self, participant: game.Participant):
+    def _finish(self, participant: T):
         self.state = RoundState.FINISHED
         return RoundResult(participant)
 
@@ -22,18 +25,16 @@ class Round:
         self.voting.start()
         self.state = RoundState.VOTING
 
-    def cast_vote(
-        self, participant: game.Participant, target: game.Participant
-    ):
+    def cast_vote(self, participant: T, target: T):
         vote = self.voting.register_vote(participant, target)
-        if not isinstance(vote, VotingResult):
+        if not isinstance(vote, voting.VotingResult):
             return None
         if vote.needs_revote:
             self._revoting()
             return None
         return self._finish_voting(vote)
 
-    def _finish_voting(self, voting_result: VotingResult):
+    def _finish_voting(self, voting_result: voting.VotingResult):
         return self._finish(voting_result.winners[0])
 
     def _revoting(self):

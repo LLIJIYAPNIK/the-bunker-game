@@ -1,26 +1,25 @@
 from collections import defaultdict
-
-from app.domain import game
+from typing import TypeVar
 
 from .state import VotingState
 from .voting_result import VotingResult
 
+T = TypeVar("T")
 
-class Voting:
-    def __init__(
-        self, voters: list[game.Participant], targets: list[game.Participant]
-    ):
+
+class Voting[T]:
+    def __init__(self, voters: list[T], targets: list[T]):
         self.voted = voters
         self.targets = targets
 
-        self.votes: dict[game.Participant, int] = defaultdict(int)
+        self.votes: dict[T, int] = defaultdict(int)
 
         self.state = VotingState.OPEN
 
     def start(self):
         self.state = VotingState.OPEN
 
-    def register_vote(self, voter: game.Participant, target: game.Participant):
+    def register_vote(self, voter: T, target: T):
         if voter not in self.voted:
             raise ValueError(
                 "Voter is already voted or voter is not in voting"

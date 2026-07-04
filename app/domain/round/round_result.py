@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from typing import TypeVar
 
-from app.domain import game
+T = TypeVar("T")
 
 
 @dataclass(frozen=True)
-class RoundResult:
-    eliminated: game.Participant
+class RoundResult[T]:
+    eliminated: T

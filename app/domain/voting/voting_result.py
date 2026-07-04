@@ -1,11 +1,12 @@
 from dataclasses import dataclass
+from typing import TypeVar
 
-from app.domain import game
+T = TypeVar("T")
 
 
 @dataclass(frozen=True)
-class VotingResult:
-    winners: list[game.Participant]
+class VotingResult[T]:
+    winners: list[T]
 
     @property
     def needs_revote(self):
