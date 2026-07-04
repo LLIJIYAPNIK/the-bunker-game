@@ -1,6 +1,11 @@
 from collections import defaultdict
 from typing import TypeVar
 
+from .exceptions import (
+    TargetDoesNotExistsError,
+    VoterAlreadyVotedError,
+    VoterSameTargetError,
+)
 from .state import VotingState
 from .voting_result import VotingResult
 
@@ -21,13 +26,11 @@ class Voting[T]:
 
     def register_vote(self, voter: T, target: T):
         if voter not in self.voted:
-            raise ValueError(
-                "Voter is already voted or voter is not in voting"
-            )
+            raise VoterAlreadyVotedError()
         if target not in self.targets:
-            raise ValueError("Target is not in voting")
+            raise TargetDoesNotExistsError()
         if voter == target:
-            raise ValueError("Target is same as voter")
+            raise VoterSameTargetError()
 
         self.voted.remove(voter)
         self.votes[target] += 1
