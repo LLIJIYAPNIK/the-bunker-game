@@ -30,4 +30,4 @@ jobs:
         run: uv run pyright
 
       - name: Run Unit Tests (Pytest)
-        run: uv run pytest --pass-no-tests
+        run: uv run pytest
