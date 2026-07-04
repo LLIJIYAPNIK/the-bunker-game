@@ -20,3 +20,8 @@ class TargetDoesNotExistsError(VotingError):
 class VoterSameTargetError(VotingError):
     def __init__(self):
         super().__init__("Voter is same as target")
+
+
+class VotingClosedError(VotingError):
+    def __init__(self):
+        super().__init__("Voting is closed")

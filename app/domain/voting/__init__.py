@@ -3,6 +3,7 @@ from .exceptions import (
     TargetDoesNotExistsError,
     VoterAlreadyVotedError,
     VoterSameTargetError,
+    VotingClosedError,
     VotingError,
 )
 from .state import VotingState
@@ -14,6 +15,7 @@ __all__ = [
     "VotingResult",
     "VotingError",
     "VoterAlreadyVotedError",
+    "VotingClosedError",
     "TargetDoesNotExistsError",
     "VoterSameTargetError",
 ]
