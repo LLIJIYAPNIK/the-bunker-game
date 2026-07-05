@@ -2,6 +2,10 @@ from typing import TypeVar
 
 from app.domain import voting
 
+from .exceptions import (
+    VotingInDiscussionRoundError,
+    VotingInFinishedRoundError,
+)
 from .round_result import RoundResult
 from .state import RoundState
 
@@ -25,7 +29,15 @@ class Round[T]:
         self.voting.start()
         self.state = RoundState.VOTING
 
+    def _check_states(self):
+        if self.state == RoundState.DISCUSSION:
+            raise VotingInDiscussionRoundError()
+        if self.state == RoundState.FINISHED:
+            raise VotingInFinishedRoundError()
+
     def cast_vote(self, participant: T, target: T):
+        self._check_states()
+
         vote = self.voting.register_vote(participant, target)
         if not isinstance(vote, voting.VotingResult):
             return None
