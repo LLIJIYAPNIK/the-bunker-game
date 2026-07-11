@@ -1,8 +1,10 @@
 from .builder import BunkerProfileBuilder
 from .entity import Bunker
 from .exceptions import (
+    BunkerOverflowError,
     CatastropheIsNoneError,
     LowCapacityError,
+    ParticipantNotFoundError,
     TimeToOutYearsIsNone,
 )
 from .profile import BunkerProfile, Catastrophe, Condition, TimeToOutYears
@@ -17,4 +19,6 @@ __all__ = [
     "CatastropheIsNoneError",
     "TimeToOutYearsIsNone",
     "LowCapacityError",
+    "BunkerOverflowError",
+    "ParticipantNotFoundError",
 ]
