@@ -32,7 +32,8 @@ def builder():
 
 
 def test_successful_bunker_profile_build(builder):
-    age_lambda = lambda age: age <= 45
+    def age_lambda(age):
+        return age <= 45
 
     profile = (
         builder.set_catastrophe(**CATASTROPHE_DATA)
