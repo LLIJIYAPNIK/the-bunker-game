@@ -1,5 +1,3 @@
-from typing import TypeVar
-
 from app.domain import voting
 
 from .exceptions import (
@@ -8,8 +6,6 @@ from .exceptions import (
 )
 from .round_result import RoundResult
 from .state import RoundState
-
-T = TypeVar("T")
 
 
 class Round[T]:

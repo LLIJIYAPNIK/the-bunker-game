@@ -1,5 +1,4 @@
 from collections import defaultdict
-from typing import TypeVar
 
 from .exceptions import (
     TargetDoesNotExistsError,
@@ -9,8 +8,6 @@ from .exceptions import (
 )
 from .state import VotingState
 from .voting_result import VotingResult
-
-T = TypeVar("T")
 
 
 class Voting[T]:
