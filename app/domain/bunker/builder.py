@@ -1,5 +1,3 @@
-from collections.abc import Callable
-
 from .exceptions import (
     CatastropheIsNoneError,
     LowCapacityError,
@@ -47,10 +45,10 @@ class BunkerProfileBuilder:
         return self
 
     def set_time_to_out(
-        self, years: int, age_predicate: Callable[[int], bool]
+        self, years: int, preferred_max_age: int
     ) -> "BunkerProfileBuilder":
         self._time_to_out_years = TimeToOutYears(
-            years=years, preferred_age=age_predicate
+            years=years, preferred_max_age=preferred_max_age
         )
         return self
 
@@ -68,7 +66,7 @@ class BunkerProfileBuilder:
 
         return BunkerProfile(
             catastrophe=self._catastrophe,
-            conditions=self._conditions,
+            conditions=tuple(self._conditions),
             time_to_out_years=self._time_to_out_years,
             capacity=self._capacity,
         )

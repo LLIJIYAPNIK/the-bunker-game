@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from dataclasses import dataclass
 
 
@@ -29,13 +28,16 @@ class Condition(SurvivalFactor):
 @dataclass(frozen=True)
 class TimeToOutYears:
     years: int
-    preferred_age: Callable[[int], bool]
+    preferred_max_age: int
+
+    def values_age(self, age: int) -> bool:
+        return age <= self.preferred_max_age
 
 
 @dataclass(frozen=True)
 class BunkerProfile:
     catastrophe: Catastrophe
-    conditions: list[Condition]
+    conditions: tuple[Condition, ...]
     time_to_out_years: TimeToOutYears
     capacity: int
 
@@ -48,3 +50,6 @@ class BunkerProfile:
         return self.catastrophe.values_item(item) or any(
             c.values_item(item) for c in self.conditions
         )
+
+    def is_age_valuable(self, age: int):
+        return self.time_to_out_years.values_age(age)

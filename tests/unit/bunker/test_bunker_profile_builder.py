@@ -32,13 +32,10 @@ def builder():
 
 
 def test_successful_bunker_profile_build(builder):
-    def age_lambda(age):
-        return age <= 45
-
     profile = (
         builder.set_catastrophe(**CATASTROPHE_DATA)
         .add_condition(**CONDITION_DATA)
-        .set_time_to_out(years=10, age_predicate=age_lambda)
+        .set_time_to_out(years=10, preferred_max_age=45)
         .set_capacity(4)
         .build()
     )
@@ -65,8 +62,8 @@ def test_successful_bunker_profile_build(builder):
 
     assert isinstance(profile.time_to_out_years, TimeToOutYears)
     assert profile.time_to_out_years.years == 10
-    assert profile.time_to_out_years.preferred_age(25) is True
-    assert profile.time_to_out_years.preferred_age(60) is False
+    assert profile.time_to_out_years.values_age(25) is True
+    assert profile.time_to_out_years.values_age(60) is False
 
 
 def test_build_multiple_conditions(builder):
@@ -78,7 +75,7 @@ def test_build_multiple_conditions(builder):
         .add_condition(
             name="Условие 2", description="...", professions=set(), items=set()
         )
-        .set_time_to_out(years=1, age_predicate=lambda x: True)
+        .set_time_to_out(years=1, preferred_max_age=100)
         .set_capacity(2)
         .build()
     )
@@ -89,11 +86,7 @@ def test_build_multiple_conditions(builder):
 
 
 def test_raise_error_when_catastrophe_is_missing(builder):
-    (
-        builder.set_time_to_out(
-            years=5, age_predicate=lambda x: True
-        ).set_capacity(4)
-    )
+    (builder.set_time_to_out(years=5, preferred_max_age=100).set_capacity(4))
 
     with pytest.raises(CatastropheIsNoneError):
         builder.build()
@@ -110,7 +103,7 @@ def test_raise_error_when_time_to_out_is_missing(builder):
 def test_raise_error_on_invalid_capacity(builder, invalid_capacity):
     builder_chain = builder.set_catastrophe(
         **CATASTROPHE_DATA
-    ).set_time_to_out(years=5, age_predicate=lambda x: True)
+    ).set_time_to_out(years=5, preferred_max_age=100)
 
     if invalid_capacity is not None:
         builder_chain.set_capacity(invalid_capacity)
