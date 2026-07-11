@@ -1,5 +1,10 @@
 from collections.abc import Callable
 
+from .exceptions import (
+    CatastropheIsNoneError,
+    LowCapacityError,
+    TimeToOutYearsIsNone,
+)
 from .profile import BunkerProfile, Catastrophe, Condition, TimeToOutYears
 
 
@@ -55,11 +60,11 @@ class BunkerProfileBuilder:
 
     def build(self) -> BunkerProfile:
         if self._catastrophe is None:
-            raise ValueError("BunkerProfile require Catastrophe!")
+            raise CatastropheIsNoneError()
         if self._time_to_out_years is None:
-            raise ValueError("BunkerProfile require TimeToOutYears!")
+            raise TimeToOutYearsIsNone()
         if self._capacity is None or self._capacity <= 0:
-            raise ValueError("Bunker's capacity have to be more than 0!")
+            raise LowCapacityError()
 
         return BunkerProfile(
             catastrophe=self._catastrophe,
