@@ -1,10 +1,11 @@
-from app.domain import game
+from typing import TypeVar
+
+T = TypeVar("T")
 
 
-class Bunker:
-    def __init__(self, capacity: int):
-        self.capacity = capacity
+class Bunker[T]:
+    def __init__(self):
+        self.participants: list[T] = []
 
-        self.participants: list[game.Participant] = []
-
-    def add_participant(self, participant: game.Participant): ...
+    def add_participant(self, participant: T):
+        self.participants.append(participant)
