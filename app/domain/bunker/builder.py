@@ -1,0 +1,72 @@
+from .exceptions import (
+    CatastropheIsNoneError,
+    LowCapacityError,
+    TimeToOutYearsIsNone,
+)
+from .profile import BunkerProfile, Catastrophe, Condition, TimeToOutYears
+
+
+class BunkerProfileBuilder:
+    def __init__(self):
+        self._catastrophe: Catastrophe | None = None
+        self._conditions: list[Condition] = []
+        self._time_to_out_years: TimeToOutYears | None = None
+        self._capacity: int | None = None
+
+    def set_catastrophe(
+        self,
+        name: str,
+        description: str,
+        professions: set[str],
+        items: set[str],
+    ) -> "BunkerProfileBuilder":
+        self._catastrophe = Catastrophe(
+            name=name,
+            description=description,
+            preferred_professions=professions,
+            preferred_items=items,
+        )
+        return self
+
+    def add_condition(
+        self,
+        name: str,
+        description: str,
+        professions: set[str],
+        items: set[str],
+    ) -> "BunkerProfileBuilder":
+        condition = Condition(
+            name=name,
+            description=description,
+            preferred_professions=professions,
+            preferred_items=items,
+        )
+        self._conditions.append(condition)
+        return self
+
+    def set_time_to_out(
+        self, years: int, preferred_max_age: int
+    ) -> "BunkerProfileBuilder":
+        self._time_to_out_years = TimeToOutYears(
+            years=years, preferred_max_age=preferred_max_age
+        )
+        return self
+
+    def set_capacity(self, capacity: int) -> "BunkerProfileBuilder":
+        self._capacity = capacity
+        return self
+
+    def build(self) -> BunkerProfile:
+        if self._catastrophe is None:
+            raise CatastropheIsNoneError()
+        if self._time_to_out_years is None:
+            raise TimeToOutYearsIsNone()
+        if self._capacity is None or self._capacity <= 0:
+            raise LowCapacityError()
+
+        return BunkerProfile(
+            catastrophe=self._catastrophe,
+            conditions=tuple(self._conditions),
+            time_to_out_years=self._time_to_out_years,
+            capacity=self._capacity,
+        )
