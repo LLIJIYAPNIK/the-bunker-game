@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from .state import CharacterState
-
 
 @dataclass
 class Character:
@@ -17,5 +15,3 @@ class Character:
     profession: str
     weight: float
     worldview: str
-
-    state: CharacterState

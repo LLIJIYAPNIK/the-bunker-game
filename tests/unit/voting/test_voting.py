@@ -9,14 +9,13 @@ from app.domain.voting import (
     VotingResult,
     VotingState,
 )
-from tests.unit import fakes
 
 
 @pytest.fixture
-def create_voting(players):
+def create_voting(players, player):
     def _create():
         p1, p2, p3 = players
-        p4 = fakes.Participant("abc")
+        p4 = player
         voting = Voting(voters=[p1, p2, p3, p4], targets=[p1, p2, p3, p4])
         return voting, p1, p2, p3, p4
 
@@ -93,7 +92,7 @@ def test_participant_voting_again(players):
         voting.register_vote(p1, p2)
 
 
-def test_participant_not_exists(players):
+def test_participant_not_exists(players, player):
     p1, p2, p3 = players
     players.remove(p3)
     voting = Voting(voters=[p1, p2], targets=[p1, p2])
@@ -101,11 +100,11 @@ def test_participant_not_exists(players):
     with pytest.raises(TargetDoesNotExistsError):
         voting.register_vote(p1, p3)
     with pytest.raises(TargetDoesNotExistsError):
-        voting.register_vote(p2, fakes.Participant("abc"))
+        voting.register_vote(p2, player)
 
 
-def test_voter_same_target():
-    p1 = fakes.Participant("abc")
+def test_voter_same_target(player):
+    p1 = player
     voting = Voting(voters=[p1], targets=[p1])
 
     with pytest.raises(VoterSameTargetError):
