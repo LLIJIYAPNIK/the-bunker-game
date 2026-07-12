@@ -47,3 +47,7 @@ class Round[T]:
 
     def _revoting(self):
         self.voting.restart()
+
+    @property
+    def is_finished(self) -> bool:
+        return self.state == RoundState.FINISHED
