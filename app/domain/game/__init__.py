@@ -8,6 +8,7 @@ from .exceptions import (
     ParticipantNotFoundError,
     RoundNotDiscussionError,
 )
+from .participant import Participant
 from .state import GameState
 
 __all__ = [
@@ -20,4 +21,5 @@ __all__ = [
     "GameNotStartedError",
     "ParticipantNotFoundError",
     "RoundNotDiscussionError",
+    "Participant",
 ]

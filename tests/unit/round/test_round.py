@@ -14,7 +14,6 @@ from app.domain.voting import (
     VotingClosedError,
     VotingState,
 )
-from tests.unit import fakes
 
 
 @pytest.fixture
@@ -27,10 +26,10 @@ def game_round(players):
 
 
 @pytest.fixture
-def game_round_4p(players):
+def game_round_4p(players, player):
     def _create():
         p1, p2, p3 = players
-        p4 = fakes.Participant("abc")
+        p4 = player
         return Round([p1, p2, p3, p4])
 
     return _create
@@ -112,13 +111,13 @@ def test_participant_voting_again(game_round):
         game_round.cast_vote(p1, p2)
 
 
-def test_participant_not_exists(game_round):
+def test_participant_not_exists(game_round, player):
     game_round = game_round()
     game_round.start_voting()
     p1, p2, *_ = game_round.voters
 
     with pytest.raises(TargetDoesNotExistsError):
-        game_round.cast_vote(p2, fakes.Participant("abc"))
+        game_round.cast_vote(p2, player)
 
 
 def test_voter_same_target(game_round):

@@ -1,9 +1,7 @@
-from app.domain import character, user
+from app.domain import character
 
 
 class Participant:
-    def __init__(
-        self, user_param: user.User, character_param: character.Character
-    ):
-        self.user = user_param
+    def __init__(self, user_info: str, character_param: character.Character):
+        self.user = user_info
         self.character = character_param
