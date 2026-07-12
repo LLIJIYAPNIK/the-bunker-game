@@ -1,5 +1,13 @@
 from app.domain import bunker, round
 
+from .exceptions import (
+    ActiveRoundNotFoundError,
+    GameAlreadyStartedError,
+    GameNotFinishedError,
+    GameNotStartedError,
+    ParticipantNotFoundError,
+    RoundNotDiscussionError,
+)
 from .participant import Participant
 from .state import GameState
 
@@ -16,25 +24,25 @@ class Game:
 
     def add_participant(self, participant: Participant):
         if self.state != GameState.WAITING:
-            ...
+            raise GameAlreadyStartedError()
         self.active_participants.append(participant)
 
     def start(self):
         if self.state != GameState.WAITING:
-            ...
+            raise GameAlreadyStartedError()
         self.state = GameState.RUNNING
         self._start_round()
 
     def start_round_voting(self):
         if self.active_round.state != round.RoundState.DISCUSSION:
-            ...
+            raise RoundNotDiscussionError()
         self.active_round.start_voting()
 
     def cast_vote(self, voter: Participant, target: Participant):
         if voter not in self.active_participants:
-            ...
+            raise ParticipantNotFoundError()
         if target not in self.active_participants:
-            ...
+            raise ParticipantNotFoundError()
 
         res = self.active_round.cast_vote(voter, target)
 
@@ -43,7 +51,7 @@ class Game:
 
     def _finish(self):
         if self.state != GameState.RUNNING:
-            ...
+            raise GameNotStartedError()
         self._add_participants_to_bunker(self.active_participants)
         self.state = GameState.FINISHED
 
@@ -80,14 +88,14 @@ class Game:
     @property
     def active_round(self) -> round.Round:
         if self._active_round is None:
-            raise
+            raise ActiveRoundNotFoundError()
 
         return self._active_round
 
     @property
     def winners(self):
         if self.state != GameState.FINISHED:
-            raise
+            raise GameNotFinishedError()
 
         return self.bunker.participants
 
