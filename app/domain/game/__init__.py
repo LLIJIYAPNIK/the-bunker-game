@@ -9,7 +9,7 @@ from .exceptions import (
     RoundNotDiscussionError,
 )
 from .participant import Participant
-from .state import GameState
+from .state import GameState, ParticipantState
 
 __all__ = [
     "Game",
@@ -22,4 +22,5 @@ __all__ = [
     "ParticipantNotFoundError",
     "RoundNotDiscussionError",
     "Participant",
+    "ParticipantState",
 ]
