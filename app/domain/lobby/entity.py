@@ -67,10 +67,10 @@ class Lobby:
             self._state = LobbyState.READY
 
     def start_game(self, game: Game):
-        if self.state != LobbyState.READY:
-            raise LobbyNotReadyError()
         if self.state == LobbyState.STARTED:
             raise LobbyIsStartedError()
+        if self.state != LobbyState.READY:
+            raise LobbyNotReadyError()
 
         self.state = LobbyState.STARTED
         self._game = game
