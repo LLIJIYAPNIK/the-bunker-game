@@ -1,22 +1,22 @@
-# UC-G4 — Завершение голосования
+# UC-G4 — Finish Voting
 
-## Акторы
-- Система
+## Actors
+- System
 
-## Предусловия
-- Голосование завершено.
+## Preconditions
+- Voting has completed.
 
-## Основной сценарий
-1. Система подсчитывает голоса.
-2. Определяет игрока с максимальным количеством голосов.
-3. Исключает игрока.
-4. Раскрывает персонажа.
-5. Проверяет условия завершения игры.
+## Main Scenario
+1. The system counts the votes.
+2. Determines the player with the most votes.
+3. Eliminates the player.
+4. Reveals the character.
+5. Checks game completion conditions.
 
-## Альтернативные сценарии
-- A1: Ничья → revote.
-- A2: Конец игры → переход в FINISHED.
+## Alternative Scenarios
+- A1: Tie → revote.
+- A2: End of game → transition to FINISHED.
 
-## Постусловия
-- Обновлены игроки.
-- Обновлено состояние игры.
+## Postconditions
+- Players are updated.
+- Game state is updated.

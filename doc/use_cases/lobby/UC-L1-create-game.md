@@ -1,24 +1,24 @@
-# UC-L1 — Создание игры
+# UC-L1 — Create Game
 
-## Акторы
-- Игрок (Host)
+## Actors
+- Player (Host)
 
-## Предусловия
-- Игрок не состоит в активной игре.
+## Preconditions
+- The player is not currently in an active game.
 
-## Основной сценарий
-1. Игрок инициирует создание игры.
-2. Система создаёт игровую сессию.
-3. Система назначает игрока хостом.
-4. Система переводит игру в состояние `WAITING`.
-5. Система создаёт код лобби.
-6. Система возвращает данные игры.
+## Main Scenario
+1. The player initiates game creation.
+2. The system creates a game session.
+3. The system assigns the player as the host.
+4. The system transitions the game to the `WAITING` state.
+5. The system generates a lobby code.
+6. The system returns the game data.
 
-## Альтернативные сценарии
-- A1: Игрок уже в игре → отказ в создании.
-- A2: Ошибка генерации кода → повтор попытки.
+## Alternative Scenarios
+- A1: The player is already in a game → creation denied.
+- A2: Error generating lobby code → retry attempt.
 
-## Постусловия
-- Создан объект Game.
-- Назначен Host.
-- Состояние: `WAITING`.
+## Postconditions
+- Game object is created.
+- Host is assigned.
+- State: `WAITING`.

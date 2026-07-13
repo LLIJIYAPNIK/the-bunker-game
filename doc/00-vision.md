@@ -1,126 +1,126 @@
 # 00 — Vision
 
-## Проект
+## Project
 
-**Bunker** — платформа для проведения настольной игры «Бункер» в Telegram с возможностью администрирования через веб-интерфейс.
+**Bunker** is a platform for playing the "Bunker" board game in Telegram with web interface administration capabilities.
 
-Проект реализует игровой движок, генерацию игровых сценариев и управление игровым процессом независимо от пользовательского интерфейса.
-
----
-
-# Цель проекта
-
-Разработать расширяемый игровой движок, позволяющий проводить партии игры «Бункер» с минимальным участием ведущего.
-
-Система должна автоматически:
-
-* создавать игровые комнаты;
-* управлять жизненным циклом игры;
-* распределять игровые характеристики;
-* проводить голосования;
-* определять результаты игры;
-* предоставлять инструменты администрирования игрового контента.
+The project implements a game engine, game scenario generation, and gameplay management independent of the user interface.
 
 ---
 
-# Основные принципы
+# Project Goal
 
-## Независимость игрового движка
+To develop an extensible game engine that allows running "Bunker" game sessions with minimal involvement from a game master.
 
-Игровая логика не зависит от Telegram, веб-интерфейса или базы данных.
+The system should automatically:
 
-Любой интерфейс должен использовать один и тот же игровой движок.
-
----
-
-## Расширяемость
-
-Архитектура должна позволять добавлять:
-
-* новые характеристики персонажей;
-* новые игровые режимы;
-* новые правила голосования;
-* новые типы карт;
-* новые способы анализа партий.
-
-Без изменения существующей бизнес-логики.
+* create game rooms;
+* manage the game lifecycle;
+* distribute game characteristics;
+* conduct voting;
+* determine game results;
+* provide tools for game content administration.
 
 ---
 
-## Простота сопровождения
+# Core Principles
 
-Каждый модуль отвечает только за одну область ответственности.
+## Game Engine Independence
 
-Изменения в одной подсистеме должны минимально затрагивать остальные.
+Game logic does not depend on Telegram, a web interface, or a database.
 
----
-
-## Тестируемость
-
-Ключевая бизнес-логика должна покрываться автоматическими тестами.
-
-Игровой движок должен тестироваться независимо от Telegram и веб-интерфейса.
+Any interface must use the same game engine.
 
 ---
 
-# Целевая аудитория
+## Extensibility
 
-Основная аудитория проекта:
+The architecture should allow adding:
 
-* компании друзей;
-* организаторы игровых мероприятий;
-* ведущие настольных игр;
-* образовательные мероприятия;
-* игровые сообщества Telegram.
+* new character characteristics;
+* new game modes;
+* new voting rules;
+* new types of cards;
+* new methods for game session analysis.
 
----
-
-# Основные возможности MVP
-
-## Лобби
-
-* создание игры;
-* подключение игроков;
-* выход из игры;
-* запуск партии.
+Without changing existing business logic.
 
 ---
 
-## Игровой процесс
+## Maintainability
 
-* генерация игровых характеристик;
-* проведение игровых раундов;
-* проведение голосований;
-* исключение игроков;
-* завершение партии.
+Each module is responsible for only one area of responsibility.
+
+Changes in one subsystem should have minimal impact on others.
 
 ---
 
-## Администрирование
+## Testability
 
-* управление игровыми картами;
-* управление характеристиками;
-* настройка параметров игры.
+Key business logic must be covered by automated tests.
 
----
-
-# Возможности будущих версий
-
-* статистика игроков;
-* рейтинг игроков;
-* история партий;
-* анализ партии с использованием LLM;
-* рекомендации оптимальных решений;
-* несколько игровых режимов;
-* редактор пользовательских наборов карт;
-* импорт и экспорт игровых наборов;
-* публичный REST API.
+The game engine must be testable independently of Telegram and the web interface.
 
 ---
 
-# Архитектурные ограничения
+# Target Audience
 
-Игровой движок не должен зависеть от:
+The main audience of the project:
+
+* groups of friends;
+* organizers of gaming events;
+* board game masters;
+* educational events;
+* gaming communities in Telegram.
+
+---
+
+# Key MVP Features
+
+## Lobby
+
+* creating a game;
+* connecting players;
+* leaving a game;
+* starting a session.
+
+---
+
+## Gameplay
+
+* generation of game characteristics;
+* conducting game rounds;
+* conducting voting;
+* eliminating players;
+* completing a session.
+
+---
+
+## Administration
+
+* managing game cards;
+* managing characteristics;
+* configuring game parameters.
+
+---
+
+# Future Version Features
+
+* player statistics;
+* player ratings;
+* session history;
+* session analysis using LLM;
+* recommendations for optimal decisions;
+* multiple game modes;
+* editor for custom card sets;
+* import and export of game sets;
+* public REST API.
+
+---
+
+# Architectural Constraints
+
+The game engine must not depend on:
 
 * Telegram API;
 * Flask;
@@ -128,17 +128,17 @@
 * ORM;
 * HTTP.
 
-Все внешние системы являются адаптерами поверх игрового движка.
+All external systems are adapters on top of the game engine.
 
 ---
 
-# Критерии успеха MVP
+# MVP Success Criteria
 
-Проект считается готовым к первой версии, если позволяет:
+The project is considered ready for the first version if it allows:
 
-1. создать игру;
-2. зарегистрировать игроков;
-3. автоматически выдать характеристики;
-4. провести полную партию;
-5. определить победителей;
-6. завершить игру без участия ведущего.
+1. creating a game;
+2. registering players;
+3. automatically assigning characteristics;
+4. conducting a full session;
+5. determining the winners;
+6. completing the game without the participation of a game master.

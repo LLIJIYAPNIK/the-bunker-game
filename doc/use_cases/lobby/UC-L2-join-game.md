@@ -1,24 +1,24 @@
-# UC-L2 — Присоединение к игре
+# UC-L2 — Join Game
 
-## Акторы
-- Игрок
+## Actors
+- Player
 
-## Предусловия
-- Игра существует.
-- Игра в состоянии `WAITING`.
+## Preconditions
+- The game exists.
+- The game is in the `WAITING` state.
 
-## Основной сценарий
-1. Игрок вводит код лобби.
-2. Система находит игру.
-3. Система проверяет возможность подключения.
-4. Система добавляет игрока в игру.
-5. Система обновляет список участников.
+## Main Scenario
+1. The player enters the lobby code.
+2. The system finds the game.
+3. The system checks if it is possible to join.
+4. The system adds the player to the game.
+5. The system updates the participant list.
 
-## Альтернативные сценарии
-- A1: Лобби не найдено.
-- A2: Игра уже началась.
-- A3: Лобби заполнено.
-- A4: Игрок уже в игре.
+## Alternative Scenarios
+- A1: Lobby not found.
+- A2: Game has already started.
+- A3: Lobby is full.
+- A4: Player is already in the game.
 
-## Постусловия
-- Игрок добавлен в GameParticipants.
+## Postconditions
+- The player is added to GameParticipants.

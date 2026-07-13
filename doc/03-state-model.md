@@ -1,162 +1,162 @@
-# 05 — State Model
+# 03 — State Model
 
-## Назначение
+## Purpose
 
-Документ описывает жизненный цикл основных сущностей домена и допустимые переходы между их состояниями.
+The document describes the lifecycle of the main domain entities and the valid transitions between their states.
 
-State Model определяет:
+The State Model defines:
 
-* допустимые состояния сущностей;
-* разрешённые переходы между состояниями;
-* события, инициирующие переходы.
+* valid states of entities;
+* permitted transitions between states;
+* events that initiate transitions.
 
 ---
 
 # Game
 
-## Описание
+## Description
 
-Game управляет жизненным циклом игровой сессии.
+Game manages the lifecycle of the game session.
 
-## Состояния
+## States
 
-| Состояние | Описание                                        |
-| --------- | ----------------------------------------------- |
-| WAITING   | Ожидание игроков. Игра ещё не началась.         |
-| RUNNING   | Игра активна. Выполняются игровые раунды.       |
-| FINISHED  | Игра завершена. Изменение состояния невозможно. |
+| State     | Description                                           |
+| --------- | ----------------------------------------------------- |
+| WAITING   | Waiting for players. The game has not yet started.    |
+| RUNNING   | The game is active. Game rounds are being played.     |
+| FINISHED  | The game is finished. State changes are not possible. |
 
-## Переходы
+## Transitions
 
-| Откуда  | Куда     | Событие                          |
-| ------- | -------- | -------------------------------- |
-| WAITING | RUNNING  | Host запускает игру              |
-| RUNNING | FINISHED | Выполнено условие окончания игры |
-| WAITING | FINISHED | Лобби принудительно закрыто      |
+| From    | To       | Event                             |
+| ------- | -------- | --------------------------------- |
+| WAITING | RUNNING  | Host starts the game              |
+| RUNNING | FINISHED | Game completion condition met     |
+| WAITING | FINISHED | Lobby is forcibly closed          |
 
 ---
 
 # Game Participant
 
-## Описание
+## Description
 
-Game Participant отражает участие пользователя в конкретной игровой сессии.
+Game Participant reflects a user's participation in a specific game session.
 
-Один пользователь может участвовать только в одной активной игре.
+A single user can participate in only one active game.
 
-## Состояния
+## States
 
-| Состояние | Описание                                        |
-| --------- | ----------------------------------------------- |
-| ACTIVE    | Участвует в игре.                               |
-| OBSERVER  | Наблюдает за игрой после исключения или выхода. |
-| LEFT      | Полностью покинул игровую сессию.               |
+| State     | Description                                                   |
+| --------- | ------------------------------------------------------------- |
+| ACTIVE    | Participating in the game.                                    |
+| OBSERVER  | Observing the game after elimination or leaving.              |
+| LEFT      | Has completely left the game session.                         |
 
-## Переходы
+## Transitions
 
-| Откуда   | Куда     | Событие                               |
-| -------- | -------- | ------------------------------------- |
-| ACTIVE   | OBSERVER | Исключение по результатам голосования |
-| ACTIVE   | LEFT     | Добровольный выход до начала игры     |
-| OBSERVER | LEFT     | Выход наблюдателя                     |
+| From     | To       | Event                                     |
+| -------- | -------- | ----------------------------------------- |
+| ACTIVE   | OBSERVER | Elimination based on voting results       |
+| ACTIVE   | LEFT     | Voluntary exit before the game starts     |
+| OBSERVER | LEFT     | Observer exit                             |
 
 ---
 
 # Character
 
-## Описание
+## Description
 
-Character представляет игрового персонажа игрока.
+Character represents a player's in-game character.
 
-## Состояния
+## States
 
-| Состояние  | Описание                   |
-| ---------- | -------------------------- |
-| ALIVE      | Персонаж участвует в игре. |
-| ELIMINATED | Персонаж исключён из игры. |
+| State      | Description                             |
+| ---------- | --------------------------------------- |
+| ALIVE      | The character is participating in the game. |
+| ELIMINATED | The character is eliminated from the game.  |
 
-## Переходы
+## Transitions
 
-| Откуда | Куда       | Событие                |
-| ------ | ---------- | ---------------------- |
-| ALIVE  | ELIMINATED | Завершение голосования |
+| From  | To         | Event               |
+| ----- | ---------- | ------------------- |
+| ALIVE | ELIMINATED | Voting completes    |
 
 ---
 
 # Voting
 
-## Описание
+## Description
 
-Voting управляет процессом выбора игрока для исключения.
+Voting manages the process of selecting a player for elimination.
 
-## Состояния
+## States
 
-| Состояние | Описание                         |
-| --------- | -------------------------------- |
-| OPEN      | Принимаются голоса игроков.      |
-| COUNTING  | Выполняется подсчёт голосов.     |
-| REVOTE    | Назначено повторное голосование. |
-| FINISHED  | Голосование завершено.           |
+| State    | Description                            |
+| -------- | -------------------------------------- |
+| OPEN     | Accepting player votes.                |
+| COUNTING | Votes are being counted.               |
+| REVOTE   | A repeated vote has been scheduled.    |
+| FINISHED | Voting is completed.                   |
 
-## Переходы
+## Transitions
 
-| Откуда   | Куда     | Событие                                                    |
+| From     | To       | Event                                                      |
 | -------- | -------- | ---------------------------------------------------------- |
-| OPEN     | COUNTING | Все игроки проголосовали или завершилось время голосования |
-| COUNTING | REVOTE   | Зафиксирована ничья                                        |
-| COUNTING | FINISHED | Определён исключаемый игрок                                |
-| REVOTE   | OPEN     | Начато повторное голосование                               |
+| OPEN     | COUNTING | All players have voted or the voting time has ended        |
+| COUNTING | REVOTE   | A tie has been recorded                                    |
+| COUNTING | FINISHED | The player to be eliminated has been determined            |
+| REVOTE   | OPEN     | A repeated vote has started                                |
 
 ---
 
 # Round
 
-## Описание
+## Description
 
-Round представляет один игровой цикл.
+Round represents a single game cycle.
 
-Каждый раунд состоит из обсуждения и голосования.
+Each round consists of discussion and voting.
 
-## Состояния
+## States
 
-| Состояние  | Описание                   |
-| ---------- | -------------------------- |
-| DISCUSSION | Игроки обсуждают ситуацию. |
-| VOTING     | Открыто голосование.       |
-| FINISHED   | Раунд завершён.            |
+| State      | Description                        |
+| ---------- | ---------------------------------- |
+| DISCUSSION | Players discuss the situation.     |
+| VOTING     | Voting is open.                    |
+| FINISHED   | The round is completed.            |
 
-## Переходы
+## Transitions
 
-| Откуда     | Куда     | Событие               |
-| ---------- | -------- | --------------------- |
-| DISCUSSION | VOTING   | Начало голосования    |
-| VOTING     | FINISHED | Голосование завершено |
+| From       | To       | Event               |
+| ---------- | -------- | ------------------- |
+| DISCUSSION | VOTING   | Voting begins       |
+| VOTING     | FINISHED | Voting is completed |
 
 ---
 
 # Bunker
 
-## Описание
+## Description
 
-В рамках MVP объект Bunker является неизменяемым.
+Within the MVP, the Bunker object is immutable.
 
-После генерации его состояние не изменяется.
+After generation, its state does not change.
 
 ---
 
 # Character Profile
 
-## Описание
+## Description
 
-Character Profile представляет набор характеристик персонажа.
+Character Profile represents a set of character characteristics.
 
-Профиль создаётся перед началом игры и остаётся неизменным до её окончания.
+The profile is created before the start of the game and remains unchanged until it ends.
 
-В рамках MVP изменения характеристик персонажа не предусмотрены.
+Within the MVP, changes to character characteristics are not provided for.
 
 ---
 
-# Диаграмма состояний
+# State Diagrams
 
 ```text
 Game
@@ -224,18 +224,18 @@ FINISHED
 
 ---
 
-# Общие ограничения
+# General Constraints
 
-* Сущность не может находиться одновременно в нескольких состояниях.
-* Любой переход между состояниями должен быть валидирован игровым движком.
-* Недопустимые переходы должны приводить к ошибке доменной логики.
-* После достижения конечного состояния (`FINISHED`, `ELIMINATED`, `LEFT`) обратный переход невозможен, если иное не предусмотрено бизнес-правилами.
+* An entity cannot be in multiple states simultaneously.
+* Any transition between states must be validated by the game engine.
+* Invalid transitions must result in a domain logic error.
+* After reaching a final state (`FINISHED`, `ELIMINATED`, `LEFT`), a reverse transition is impossible unless otherwise specified by business rules.
 
 ---
 
-# Требуют уточнения
+# Require Clarification
 
-* Может ли участник переподключиться к уже запущенной игре после потери соединения.
-* Допускается ли отмена голосования администратором игры.
-* Требуется ли отдельное состояние `PAUSED` для игры.
-* Может ли существовать несколько последовательных голосований в рамках одного раунда.
+* Can a participant reconnect to an already running game after a connection loss.
+* Is the game administrator allowed to cancel a vote.
+* Is a separate `PAUSED` state required for the game.
+* Can there be multiple consecutive votes within a single round.

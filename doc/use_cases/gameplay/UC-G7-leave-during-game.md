@@ -1,20 +1,20 @@
-# UC-G7 — Выход во время игры
+# UC-G7 — Leave During Game
 
-## Акторы
-- Игрок
+## Actors
+- Player
 
-## Предусловия
-- Игрок участвует в игре.
+## Preconditions
+- The player is participating in the game.
 
-## Основной сценарий
-1. Игрок инициирует выход.
-2. Система проверяет фазу игры.
-3. Обновляет статус игрока.
-4. При необходимости переводит в OBSERVER.
+## Main Scenario
+1. The player initiates leaving.
+2. The system checks the game phase.
+3. Updates the player's status.
+4. Transfers to OBSERVER if necessary.
 
-## Альтернативные сценарии
-- A1: Игрок вышел во время голосования → голос аннулируется.
-- A2: Игрок последний активный → завершение игры.
+## Alternative Scenarios
+- A1: The player left during voting → the vote is annulled.
+- A2: The player is the last active one → game finishes.
 
-## Постусловия
-- Игрок исключён или переведён в OBSERVER.
+## Postconditions
+- The player is eliminated or transferred to OBSERVER.

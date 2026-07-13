@@ -1,18 +1,18 @@
-# UC-G5 — Исключение игрока
+# UC-G5 — Eliminate Player
 
-## Акторы
-- Система
+## Actors
+- System
 
-## Предусловия
-- Игрок выбран на исключение.
+## Preconditions
+- A player has been selected for elimination.
 
-## Основной сценарий
-1. Персонаж помечается как ELIMINATED.
-2. Игрок переводится в OBSERVER.
-3. Обновляется состояние игры.
+## Main Scenario
+1. The character is marked as ELIMINATED.
+2. The player is transferred to OBSERVER.
+3. The game state is updated.
 
-## Альтернативные сценарии
-- A1: Игрок уже исключён → игнорирование.
+## Alternative Scenarios
+- A1: The player is already eliminated → ignored.
 
-## Постусловия
-- Игрок не участвует в активной фазе игры.
+## Postconditions
+- The player no longer participates in the active phase of the game.

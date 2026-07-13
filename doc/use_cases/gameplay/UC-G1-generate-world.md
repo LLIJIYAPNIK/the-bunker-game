@@ -1,22 +1,22 @@
-# UC-G1 — Генерация игрового мира
+# UC-G1 — Generate Game World
 
-## Акторы
-- Система
+## Actors
+- System
 
-## Предусловия
-- Игра в состоянии `RUNNING`.
+## Preconditions
+- The game is in the `RUNNING` state.
 
-## Основной сценарий
-1. Система выбирает бункер.
-2. Система выбирает катастрофу.
-3. Система генерирует набор характеристик.
-4. Система создаёт персонажей для игроков.
-5. Система сохраняет игровой контекст.
+## Main Scenario
+1. The system selects a bunker.
+2. The system selects a catastrophe.
+3. The system generates a set of characteristics.
+4. The system creates characters for players.
+5. The system saves the game context.
 
-## Альтернативные сценарии
-- A1: Недостаточно контента → генерация прерывается.
+## Alternative Scenarios
+- A1: Insufficient content → generation is aborted.
 
-## Постусловия
-- Созданы Character.
-- Создан Bunker.
-- Создан GameContext.
+## Postconditions
+- Characters are created.
+- Bunker is created.
+- GameContext is created.

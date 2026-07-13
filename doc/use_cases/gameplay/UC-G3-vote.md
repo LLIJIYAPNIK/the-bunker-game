@@ -1,22 +1,22 @@
-# UC-G3 — Голосование
+# UC-G3 — Voting
 
-## Акторы
-- Игрок
+## Actors
+- Player
 
-## Предусловия
-- Голосование открыто.
-- Игрок жив.
+## Preconditions
+- Voting is open.
+- The player is alive.
 
-## Основной сценарий
-1. Игрок выбирает цель.
-2. Система принимает голос.
-3. Система сохраняет голос.
-4. Система проверяет завершение голосования.
+## Main Scenario
+1. The player selects a target.
+2. The system accepts the vote.
+3. The system saves the vote.
+4. The system checks if voting is complete.
 
-## Альтернативные сценарии
-- A1: Игрок уже голосовал.
-- A2: Голосование закрыто.
-- A3: Игрок исключён.
+## Alternative Scenarios
+- A1: The player has already voted.
+- A2: Voting is closed.
+- A3: The player is eliminated.
 
-## Постусловия
-- Голос сохранён.
+## Postconditions
+- The vote is saved.

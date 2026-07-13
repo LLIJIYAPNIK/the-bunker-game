@@ -1,20 +1,20 @@
-# UC-L3 — Выход из игры
+# UC-L3 — Leave Game
 
-## Акторы
-- Игрок
+## Actors
+- Player
 
-## Предусловия
-- Игрок состоит в игре.
+## Preconditions
+- The player is in a game.
 
-## Основной сценарий
-1. Игрок инициирует выход.
-2. Система удаляет игрока из игры.
-3. Система обновляет состояние лобби.
-4. Система проверяет влияние на игру.
+## Main Scenario
+1. The player initiates leaving.
+2. The system removes the player from the game.
+3. The system updates the lobby state.
+4. The system checks the impact on the game.
 
-## Альтернативные сценарии
-- A1: Игрок является Host → требуется обработка передачи роли или завершения игры.
-- A2: Игра уже началась → игрок становится наблюдателем.
+## Alternative Scenarios
+- A1: The player is the Host → requires processing role transfer or game termination.
+- A2: The game has already started → the player becomes an observer.
 
-## Постусловия
-- Игрок удалён или переведён в OBSERVER.
+## Postconditions
+- The player is removed or transferred to OBSERVER.

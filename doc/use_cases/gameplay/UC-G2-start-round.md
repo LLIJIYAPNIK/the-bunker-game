@@ -1,19 +1,19 @@
-# UC-G2 — Начало раунда
+# UC-G2 — Start Round
 
-## Акторы
-- Система
+## Actors
+- System
 
-## Предусловия
-- Игра `RUNNING`.
-- Нет активного голосования.
+## Preconditions
+- The game is `RUNNING`.
+- There is no active voting.
 
-## Основной сценарий
-1. Система инициирует раунд.
-2. Система переводит игру в фазу обсуждения.
-3. Система уведомляет игроков.
+## Main Scenario
+1. The system initiates a round.
+2. The system transitions the game to the discussion phase.
+3. The system notifies the players.
 
-## Альтернативные сценарии
-- A1: Недостаточно игроков → завершение игры.
+## Alternative Scenarios
+- A1: Not enough players → game finishes.
 
-## Постусловия
-- Раунд активен.
+## Postconditions
+- The round is active.

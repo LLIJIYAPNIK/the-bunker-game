@@ -1,24 +1,24 @@
-# UC-L4 — Запуск игры
+# UC-L4 — Start Game
 
-## Акторы
+## Actors
 - Host
 
-## Предусловия
-- Игра в состоянии `WAITING`.
-- Достаточно игроков для старта.
+## Preconditions
+- The game is in the `WAITING` state.
+- There are enough players to start.
 
-## Основной сценарий
-1. Host запускает игру.
-2. Система проверяет условия старта.
-3. Система фиксирует состав игроков.
-4. Система переводит игру в `RUNNING`.
-5. Система инициирует генерацию игрового мира.
+## Main Scenario
+1. The Host starts the game.
+2. The system checks the start conditions.
+3. The system fixes the roster of players.
+4. The system transitions the game to `RUNNING`.
+5. The system initiates game world generation.
 
-## Альтернативные сценарии
-- A1: Недостаточно игроков.
-- A2: Игра уже запущена.
-- A3: Нет прав у инициатора.
+## Alternative Scenarios
+- A1: Not enough players.
+- A2: The game is already running.
+- A3: The initiator does not have permissions.
 
-## Постусловия
-- Игра активна.
-- Состав игроков зафиксирован.
+## Postconditions
+- The game is active.
+- The roster of players is fixed.

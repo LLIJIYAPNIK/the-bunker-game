@@ -2,123 +2,123 @@
 
 ## Game
 
-Игровая сессия, объединяющая участников, игровой процесс, состояние игры и связанные игровые объекты.
+A game session that combines participants, gameplay, game state, and related game objects.
 
 ---
 
 ## Lobby
 
-Этап ожидания игроков до начала партии.
+The waiting phase for players before the start of a session.
 
 ---
 
 ## Player
 
-Пользователь системы, участвующий в конкретной игровой сессии.
+A user of the system participating in a specific game session.
 
-Игрок управляет персонажем, принимает решения и участвует в голосовании.
+The player controls a character, makes decisions, and participates in voting.
 
 ---
 
 ## Character
 
-Игровой персонаж, принадлежащий игроку.
+An in-game character belonging to a player.
 
-Персонаж содержит игровой набор характеристик, используемых при принятии решений во время партии.
+The character contains a game set of characteristics used when making decisions during the session.
 
 ---
 
 ## Character Attribute
 
-Любая характеристика персонажа.
+Any characteristic of a character.
 
-Например:
+For example:
 
-* профессия;
-* возраст;
-* здоровье;
-* хобби;
-* предмет;
-* биологические особенности;
-* дополнительные навыки.
+* profession;
+* age;
+* health;
+* hobby;
+* item;
+* biological traits;
+* additional skills.
 
 ---
 
 ## Card
 
-Игровой объект, описывающий одну характеристику персонажа или игрового мира.
+A game object describing one characteristic of a character or the game world.
 
 ---
 
 ## Card Template
 
-Описание игровой карты, используемое при генерации персонажей.
+A description of a game card used when generating characters.
 
-Является частью игрового контента.
+It is part of the game content.
 
 ---
 
 ## Deck
 
-Набор игровых карт, используемых генератором при создании партии.
+A set of game cards used by the generator when creating a session.
 
 ---
 
 ## Bunker
 
-Описание убежища, в которое стремятся попасть игроки.
+A description of the shelter the players are striving to get into.
 
-Содержит параметры, влияющие на игровой процесс.
+It contains parameters that affect the gameplay.
 
 ---
 
 ## Catastrophe
 
-Глобальное событие, приведшее к необходимости использования бункера.
+A global event that led to the need to use the bunker.
 
-Определяет игровой контекст партии.
+Determines the game context of the session.
 
 ---
 
 ## Round
 
-Завершённый этап игры, включающий обсуждение, голосование и обработку результатов.
+A completed stage of the game, including discussion, voting, and results processing.
 
 ---
 
 ## Vote
 
-Процесс выбора игрока, который должен быть исключён из игры.
+The process of choosing a player who must be eliminated from the game.
 
 ---
 
 ## Revote
 
-Повторное голосование, проводимое при отсутствии однозначного результата предыдущего голосования.
+A repeated vote held when there is no clear result from the previous vote.
 
 ---
 
 ## Observer
 
-Игрок, исключённый из активного игрового процесса.
+A player eliminated from active gameplay.
 
-Наблюдатель не принимает участия в голосовании, но может получать информацию о ходе партии в соответствии с правилами игры.
+An observer does not take part in voting, but can receive information about the progress of the session in accordance with the rules of the game.
 
 ---
 
 ## Host
 
-Создатель игровой комнаты.
+The creator of the game room.
 
-До начала партии обладает правом запуска игры.
+Before the start of the session, they have the right to start the game.
 
 ---
 
 ## Game State
 
-Текущее состояние игровой сессии.
+The current state of the game session.
 
-Пример состояний:
+Example states:
 
 * WAITING
 * RUNNING
@@ -128,9 +128,9 @@
 
 ## Vote State
 
-Текущее состояние голосования.
+The current state of voting.
 
-Пример состояний:
+Example states:
 
 * CREATED
 * OPEN
@@ -141,9 +141,9 @@
 
 ## Character State
 
-Текущее состояние персонажа.
+The current state of the character.
 
-Пример состояний:
+Example states:
 
 * ALIVE
 * ELIMINATED
@@ -152,42 +152,42 @@
 
 ## Game Engine
 
-Центральная бизнес-логика проекта.
+The central business logic of the project.
 
-Управляет жизненным циклом игры, координирует игровые процессы и обеспечивает соблюдение правил.
+Manages the game's lifecycle, coordinates game processes, and ensures adherence to the rules.
 
 ---
 
 ## Game Content
 
-Совокупность игровых данных, используемых движком.
+A set of game data used by the engine.
 
-Включает:
+Includes:
 
-* карты;
-* профессии;
-* заболевания;
-* предметы;
-* характеристики;
-* сценарии катастроф;
-* параметры бункеров.
+* cards;
+* professions;
+* diseases;
+* items;
+* characteristics;
+* catastrophe scenarios;
+* bunker parameters.
 
 ---
 
 ## Use Case
 
-Сценарий использования системы, описывающий достижение конкретной пользовательской цели без деталей реализации.
+A system usage scenario describing the achievement of a specific user goal without implementation details.
 
 ---
 
 ## Aggregate
 
-Группа взаимосвязанных доменных объектов, изменяемых как единое целое.
+A group of interconnected domain objects modified as a single unit.
 
 ---
 
 ## Aggregate Root
 
-Главная сущность агрегата, через которую выполняются изменения остальных объектов агрегата.
+The main entity of the aggregate, through which changes to the rest of the aggregate objects are made.
 
-В игровом домене агрегатом является игровая сессия, а её корнем — `Game`.
+In the game domain, the aggregate is the game session, and its root is `Game`.

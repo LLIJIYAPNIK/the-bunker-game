@@ -1,20 +1,20 @@
-# UC-G6 — Завершение игры
+# UC-G6 — Finish Game
 
-## Акторы
-- Система
+## Actors
+- System
 
-## Предусловия
-- Выполнено условие окончания игры.
+## Preconditions
+- The game completion condition is met.
 
-## Основной сценарий
-1. Система определяет оставшихся игроков.
-2. Формирует результаты.
-3. Переводит игру в FINISHED.
-4. Закрывает активные процессы.
+## Main Scenario
+1. The system determines the remaining players.
+2. Forms the results.
+3. Transitions the game to FINISHED.
+4. Closes active processes.
 
-## Альтернативные сценарии
-- A1: Все игроки вышли → принудительное завершение.
+## Alternative Scenarios
+- A1: All players left → forced completion.
 
-## Постусловия
-- Игра завершена.
-- Сохранена статистика.
+## Postconditions
+- The game is finished.
+- Statistics are saved.
