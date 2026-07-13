@@ -5,6 +5,15 @@ class LobbyError(DomainError):
     pass
 
 
+class GameRulesError(LobbyError):
+    pass
+
+
+class NotEnoughPlayersError(GameRulesError):
+    def __init__(self):
+        super().__init__("Not enough players to start the game")
+
+
 class ParticipantAlreadyInLobbyError(LobbyError):
     def __init__(self):
         super().__init__("Participant already in lobby")
