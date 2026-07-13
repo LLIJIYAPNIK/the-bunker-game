@@ -67,7 +67,7 @@ class Lobby:
 
     def _ready_lobby(self):
         if self.is_ready:
-            self._state = LobbyState.READY
+            self.state = LobbyState.READY
 
     def start_game(self, game: Game):
         if self.state == LobbyState.STARTED:
