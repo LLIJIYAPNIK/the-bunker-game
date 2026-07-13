@@ -5,6 +5,7 @@ from .exceptions import (
     GameNotSetError,
     LobbyIsStartedError,
     LobbyNotReadyError,
+    NotEnoughPlayersError,
     ParticipantAlreadyInLobbyError,
     ParticipantNotInLobbyError,
 )
@@ -12,6 +13,8 @@ from .state import LobbyState
 
 
 class Lobby:
+    MIN_PLAYERS = 4
+
     def __init__(self, participants: list[Participant]):
         self._participants: list[Participant] = participants
         self._game: Game | None = None
@@ -64,13 +67,17 @@ class Lobby:
 
     def _ready_lobby(self):
         if self.is_ready:
-            self._state = LobbyState.READY
+            self.state = LobbyState.READY
 
     def start_game(self, game: Game):
         if self.state == LobbyState.STARTED:
             raise LobbyIsStartedError()
         if self.state != LobbyState.READY:
             raise LobbyNotReadyError()
+
+        # Official Bunker game rules require a minimum of 4 players
+        if len(self.participants) < self.MIN_PLAYERS:
+            raise NotEnoughPlayersError()
 
         self.state = LobbyState.STARTED
         self._game = game
