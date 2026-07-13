@@ -1,5 +1,13 @@
 from app.domain.game import Game, Participant, ParticipantState
 
+from .exceptions import (
+    GameIsRunningError,
+    GameNotSetError,
+    LobbyIsStartedError,
+    LobbyNotReadyError,
+    ParticipantAlreadyInLobbyError,
+    ParticipantNotInLobbyError,
+)
 from .state import LobbyState
 
 
@@ -34,23 +42,23 @@ class Lobby:
 
     def add_participant(self, participant: Participant):
         if participant in self.participants:
-            raise
+            raise ParticipantAlreadyInLobbyError()
         self._participants.append(participant)
 
     def remove_participant(self, participant: Participant):
         if participant not in self.participants:
-            raise
+            raise ParticipantNotInLobbyError()
         self._participants.remove(participant)
 
     def cast_to_ready(self, participant: Participant):
         if self.state == LobbyState.STARTED:
-            raise
+            raise LobbyIsStartedError()
         participant.ready()
         self._ready_lobby()
 
     def cast_to_unready(self, participant: Participant):
         if self.state == LobbyState.STARTED:
-            raise
+            raise LobbyIsStartedError()
         participant.unready()
         self.state = LobbyState.WAITING
 
@@ -60,11 +68,9 @@ class Lobby:
 
     def start_game(self, game: Game):
         if self.state != LobbyState.READY:
-            raise
-        if self.state == LobbyState.WAITING:
-            raise
+            raise LobbyNotReadyError()
         if self.state == LobbyState.STARTED:
-            raise
+            raise LobbyIsStartedError()
 
         self.state = LobbyState.STARTED
         self._game = game
@@ -72,9 +78,9 @@ class Lobby:
 
     def finish_game(self):
         if self._game is None:
-            raise
+            raise GameNotSetError()
         if self._game.is_running:
-            raise
+            raise GameIsRunningError()
         if self._game.is_finished:
             winners = self._game.winners
             self._game = None
